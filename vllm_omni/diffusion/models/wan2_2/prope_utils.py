@@ -1,5 +1,5 @@
-# SPDX-License-Identifier: Apache-2.0 AND MIT
-# SPDX-FileCopyrightText: Copyright contributors to the vLLM project
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: Copyright contributors to the vLLM-Omni project
 #
 # The PRoPE attention transforms in this file are vendored (ProPE self-attention
 # path only) from the MIT-licensed reference implementation by the authors of

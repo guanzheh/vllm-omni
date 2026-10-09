@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: Apache-2.0
-# SPDX-FileCopyrightText: Copyright contributors to the vLLM project
+# SPDX-FileCopyrightText: Copyright contributors to the vLLM-Omni project
 """CPU tests for the DreamX-World-5B-Cam (WanCameraPipeline) runtime path.
 
 Covers the camera pre-process (request mutation, action validation, camera

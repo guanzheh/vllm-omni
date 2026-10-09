@@ -24,7 +24,7 @@ tokenizer load from the base `Wan-AI/Wan2.2-TI2V-5B-Diffusers` by default
 Camera action tokens (composable, e.g. `"wj"` = push in + pan left):
 
 | Token | Control | Token | Control |
-|-------|---------|-------|---------|
+| ------- | --------- | ------- | --------- |
 | `w` | push in | `s` | pull out |
 | `a` | move left | `d` | move right |
 | `i` | tilt up | `k` | tilt down |
@@ -36,10 +36,10 @@ and passed via `--extra-body`.
 
 ## References
 
-- Model: https://huggingface.co/GD-ML/DreamX-World-5B-Cam
-- Upstream: https://github.com/AMAP-ML/DreamX-World
-- Base model: https://huggingface.co/Wan-AI/Wan2.2-TI2V-5B-Diffusers
-- Integration issue: https://github.com/vllm-project/vllm-omni/issues/4570
+- Model: <https://huggingface.co/GD-ML/DreamX-World-5B-Cam>
+- Upstream: <https://github.com/AMAP-ML/DreamX-World>
+- Base model: <https://huggingface.co/Wan-AI/Wan2.2-TI2V-5B-Diffusers>
+- Integration issue: <https://github.com/vllm-project/vllm-omni/issues/4570>
 
 ## Hardware Support
 
@@ -85,9 +85,9 @@ from upstream's (see Notes).
 #### Notes
 
 - **Measured (1x H100 80GB, command above, warm, mean of 3 runs):**
-  - I2V 704×1280, 121 frames, 50 steps → **~196 s** end-to-end
+    - I2V 704×1280, 121 frames, 50 steps → **~196 s** end-to-end
     (denoise 3.71 s/step, VAE decode ~6.8 s); engine init ~57 s.
-  - Upstream DreamX reference on the same GPU, inputs, seed and sampler
+    - Upstream DreamX reference on the same GPU, inputs, seed and sampler
     (UniPC): ~292 s end-to-end, init ~152 s.
 - **Memory:** ~49.7 GB peak device memory (vs ~45.1 GB upstream) — fits a
   single 80 GB GPU with headroom. The camera (PRoPE) branch requires

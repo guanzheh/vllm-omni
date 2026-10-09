@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: Apache-2.0
-# SPDX-FileCopyrightText: Copyright contributors to the vLLM project
+# SPDX-FileCopyrightText: Copyright contributors to the vLLM-Omni project
 """Camera-controlled (PRoPE) variant of ``WanTransformer3DModel`` for DreamX-World-5B-Cam.
 
 Adds a per-block PRoPE camera self-attention branch (``CameraSelfAttention``) summed
@@ -9,9 +9,9 @@ DreamX (``models/wan_transformer3d.py``). The camera (PRoPE) path runs single-GP
 
 from __future__ import annotations
 
-import re
 from collections.abc import Iterable
 
+import regex as re
 import torch
 import torch.nn as nn
 from vllm.model_executor.layers.quantization.base_config import QuantizationConfig
@@ -160,6 +160,8 @@ class WanCameraTransformerBlock(WanTransformerBlock):
         temb: torch.Tensor,
         rotary_emb: tuple[torch.Tensor, torch.Tensor],
         hidden_states_mask: torch.Tensor | None = None,
+        vsa_dit_seq_shape: tuple[int, int, int] | None = None,
+        preserve_vsa_all_blocks: bool = False,
     ) -> torch.Tensor:
         from vllm_omni.diffusion.attention.backends.abstract import AttentionMetadata
 

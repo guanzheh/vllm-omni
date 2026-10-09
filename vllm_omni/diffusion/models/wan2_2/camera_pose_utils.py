@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: Apache-2.0
-# SPDX-FileCopyrightText: Copyright contributors to the vLLM project
+# SPDX-FileCopyrightText: Copyright contributors to the vLLM-Omni project
 # Camera class adapted from CameraCtrl (Apache-2.0)
 # https://github.com/hehao13/CameraCtrl
 

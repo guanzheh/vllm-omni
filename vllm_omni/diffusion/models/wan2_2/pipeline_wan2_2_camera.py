@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: Apache-2.0
-# SPDX-FileCopyrightText: Copyright contributors to the vLLM project
+# SPDX-FileCopyrightText: Copyright contributors to the vLLM-Omni project
 """DreamX-World-5B-Cam pipeline: Wan2.2 TI2V-5B I2V + PRoPE camera/action control.
 
 Subclasses ``Wan22Pipeline`` (the TI2V-5B ``expand_timesteps`` I2V path) and adds
@@ -69,9 +69,9 @@ def _load_root_transformer_config(model: str, local_files_only: bool) -> dict:
             with open(config_path) as f:
                 return json.load(f)
         return {}
-    from huggingface_hub import hf_hub_download
+    from vllm_omni.transformers_utils.repo_utils import hf_api
 
-    config_path = hf_hub_download(repo_id=model, filename="config.json")
+    config_path = hf_api().hf_hub_download(repo_id=model, filename="config.json")
     with open(config_path) as f:
         return json.load(f)
 
@@ -187,6 +187,9 @@ def _extract_camera_condition(req: DiffusionRequestBatch) -> dict[str, torch.Ten
 class Wan22CameraPipeline(Wan22Pipeline):
     """Wan2.2 TI2V-5B + PRoPE camera control (DreamX-World-5B-Cam)."""
 
+    # Camera trajectories are per-request; keep the engine from batching requests.
+    supports_request_batch = False
+
     def __init__(self, *, od_config: OmniDiffusionConfig, prefix: str = ""):
         # Initialise the mixin/nn.Module chain WITHOUT Wan22Pipeline.__init__,
         # which assumes a single diffusers root (DreamX ships a transformer-only,
@@ -205,6 +208,7 @@ class Wan22CameraPipeline(Wan22Pipeline):
 
         # TI2V-5B: single transformer, expand_timesteps I2V; no MoE boundary.
         self.expand_timesteps = True
+        self.is_dmd = False
         self.has_transformer_2 = False
         self.boundary_ratio = od_config.boundary_ratio
 
