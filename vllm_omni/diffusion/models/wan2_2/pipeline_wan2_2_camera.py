@@ -21,6 +21,7 @@ import torch
 from torch import nn
 from transformers import AutoTokenizer, UMT5EncoderModel
 
+from vllm_omni.config.stage_config import DiffusionStageRole
 from vllm_omni.diffusion.data import OmniDiffusionConfig
 from vllm_omni.diffusion.distributed.autoencoders.autoencoder_kl_wan import DistributedAutoencoderKLWan
 from vllm_omni.diffusion.distributed.utils import get_local_device
@@ -211,6 +212,8 @@ class Wan22CameraPipeline(Wan22Pipeline):
         self.is_dmd = False
         self.has_transformer_2 = False
         self.boundary_ratio = od_config.boundary_ratio
+        self.stage_role = DiffusionStageRole.FULL
+        self.encode_only = False
 
         # Transformer weights come from the DreamX repo ROOT. Use subfolder=None
         # (the loader's root convention, as in bagel/sensenova/cosmos3); an empty
